@@ -233,16 +233,13 @@ To build the user guide, first ensure that Sphinx is installed in your Poetry en
 poetry add --dev sphinx
 ```
 
-Initialize Sphinx in the docs directory:
+Initialize Sphinx in the docs' directory:
 ```bash
 cd docs
-```
-```bash
 sphinx-quickstart
 ```
 
 Configure docs/source/conf.py to include your src directory:
-
 ```bash
 from pathlib import Path
 import sys
@@ -459,7 +456,7 @@ sudo apt install python3.12
 
 [`poetry show`](https://python-poetry.org/docs/cli#show) is a Poetry command for listing installed
 packages. The `--tree` option displays them in the form of a dependency tree. For large projects,
-it is often difficult to determine dependency relationships soley from manually inspecting
+it is often difficult to determine dependency relationships just from manually inspecting
 `poetry.lock`.
 
 ```shell
