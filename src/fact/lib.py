@@ -4,15 +4,12 @@ class InvalidFactorialError(RuntimeError):
 
 def factorial(n: int) -> int:
     """Computes the factorial through a recursive algorithm.
-
     Args:
-        n: A positive input value.
-
+        n (int): A positive input value.
     Raises:
         InvalidFactorialError: If n is less than 0.
-
     Returns:
-        Computed factorial.
+        int: Computed factorial.
     """
     if n < 0:
         raise InvalidFactorialError(f"n is less than zero: {n}")

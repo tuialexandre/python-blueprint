@@ -10,7 +10,7 @@ nox.options.reuse_existing_virtualenvs = True
 nox.options.sessions = ["lint", "type_check", "test", "docs"]
 
 
-@session(python=["3.9", "3.10", "3.11", "3.12", "3.13"])
+@session(python=["3.10", "3.11", "3.12", "3.13"])
 def test(s: Session) -> None:
     s.install(".", "pytest", "pytest-cov", "pytest-randomly")
     s.run(
@@ -73,33 +73,26 @@ def type_check(s: Session) -> None:
     s.run("mypy", "src", "tests", "noxfile.py")
 
 
-# Environment variable needed for mkdocstrings-python to locate source files.
+# Environment variable needed for Sphinx to locate source files.
 doc_env = {"PYTHONPATH": "src"}
 
 
 @session(venv_backend="none")
 def docs(s: Session) -> None:
-    s.run("mkdocs", "build", env=doc_env)
+    # Build the HTML documentation
+    s.run("sphinx-build", "-b", "html", "docs/source", "docs/build/html", env=doc_env)
 
 
 @session(venv_backend="none")
 def docs_check_urls(s: Session) -> None:
-    s.run("mkdocs", "build", env=doc_env | {"HTMLPROOFER_VALIDATE_EXTERNAL_URLS": str(True)})
-
-
-@session(venv_backend="none")
-def docs_offline(s: Session) -> None:
-    s.run("mkdocs", "build", env=doc_env | {"MKDOCS_MATERIAL_OFFLINE": str(True)})
+    # Check for broken links
+    s.run("sphinx-build", "-b", "linkcheck", "docs/source", "docs/build/linkcheck", env=doc_env)
 
 
 @session(venv_backend="none")
 def docs_serve(s: Session) -> None:
-    s.run("mkdocs", "serve", env=doc_env)
-
-
-@session(venv_backend="none")
-def docs_github_pages(s: Session) -> None:
-    s.run("mkdocs", "gh-deploy", "--force", env=doc_env)
+    # Serve the documentation using Python's HTTP server
+    s.run("python", "-m", "http.server", "8000", "-d", "docs/build/html")
 
 
 @session(reuse_venv=False)

@@ -18,6 +18,8 @@ provides a simple implementation of the
 [factorial algorithm](https://en.wikipedia.org/wiki/Factorial) (`fact.lib`) and a command line
 interface (`fact.cli`).
 
+This fork uses Sphinx instead of mkdocs.
+
 # Package Management
 
 This package uses [Poetry](https://python-poetry.org/) to manage dependencies and
@@ -224,12 +226,29 @@ GitHub Actions is configured in [`.github/workflows/python.yml`](./.github/workf
 
 ## Generating a User Guide
 
-[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) is a powerful static site
-generator that combines easy-to-write Markdown, with a number of Markdown extensions that increase
-the power of Markdown. This makes it a great fit for user guides and other technical documentation.
+Sphinx is a powerful documentation generator that supports reStructuredText and integrates well with Python projects. This makes it a great fit for user guides and technical documentation.
+To build the user guide, first ensure that Sphinx is installed in your Poetry environment:
 
-The example MkDocs project included in this project is configured to allow the built documentation
-to be hosted at any URL or viewed offline from the file system.
+```bash
+poetry add --dev sphinx
+```
+
+Initialize Sphinx in the docs directory:
+```bash
+cd docs
+```
+```bash
+sphinx-quickstart
+```
+
+Configure docs/source/conf.py to include your src directory:
+
+```bash
+from pathlib import Path
+import sys
+
+sys.path.insert(0, Path('../src').resolve())
+```
 
 To build the user guide, run,
 
@@ -243,12 +262,6 @@ To build the user guide, additionally validating external URLs, run:
 
 ```bash
 (fact) $ nox -s docs_check_urls
-```
-
-To build the user guide in a format suitable for viewing directly from the file system, run:
-
-```bash
-(fact) $ nox -s docs_offline
 ```
 
 To build and serve the user guide with automatic rebuilding as you change the contents,
@@ -268,10 +281,17 @@ can be viewed at <https://johnthagen.github.io/python-blueprint/>.
 
 ## Generating API Documentation
 
-This project uses [mkdocstrings](https://github.com/mkdocstrings/mkdocstrings) plugin for
-MkDocs, which renders
-[Google-style docstrings](https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html)
-into an MkDocs project. Google-style docstrings provide a good mix of easy-to-read docstrings in
+Sphinx can automatically generate API documentation from docstrings using the sphinx.ext.autodoc and sphinx.ext.napoleon extensions, which support Google-style docstrings.
+Ensure these extensions are enabled in conf.py:
+
+```python
+extensions = [
+    'sphinx.ext.autodoc',
+    'sphinx.ext.napoleon',
+]
+```
+
+Google-style docstrings provide a good mix of easy-to-read docstrings in
 code as well as nicely-rendered output.
 
 ```python
