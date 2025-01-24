@@ -530,9 +530,7 @@ Now, on <kbd>ctrl+s</kbd>, the current source file will be automatically formatt
 1. Ensure that the [File Watchers Plugin](https://plugins.jetbrains.com/plugin/7177-file-watchers)
    is installed.
 2. Open Preferences or Settings | Tools | File Watchers and select `+` | `<custom>`
-   
  ![](docs/static/images/preferences.png)
-
 3. Fill in the following fields
     - **Name**: `ruff check --select I --fix`
     - **File Type**: Python
