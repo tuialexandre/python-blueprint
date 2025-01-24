@@ -23,6 +23,7 @@ release = "0.0.1"
 extensions = [
     "sphinx.ext.autodoc",  # Automatically generate documentation from docstrings
     "sphinx.ext.napoleon",  # Use napoleon to support google and numpy style
+    'sphinx.ext.intersphinx' # Allow referencing other projects` documentation
 ]
 
 templates_path = ["_templates"]
