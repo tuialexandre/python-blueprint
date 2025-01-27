@@ -2,8 +2,7 @@
 name = "fact"
 version = "1.0.0"
 description = "Example Python project using best practices"
-authors = [
-    { name = "John Hagen", email = "johnthagen@users.noreply.github.com" }]
+authors = [{ name = "Tui Baraniuk", email = "tuialexandre@users.noreply.github.com" }]
 license = "MIT"
 readme = "README.md"
 classifiers = [
@@ -28,7 +27,7 @@ classifiers = [
 requires-python = ">=3.10, <3.14"
 dependencies = [
     "rich",
-    "typer-slim[standard]"
+    "typer-slim[standard]",
 ]
 
 [project.urls]
@@ -85,6 +84,8 @@ strict = true
 # TODO: Remove this when explicit-override is enabled by default in strict mode
 #   https://github.com/python/mypy/issues/17511
 enable_error_code = ["explicit-override"]
+disallow_subclassing_any = false
+exclude = "^(tests|docs)/"
 # If certain strict config options are too pedantic for a project,
 # disable them selectively here by setting to false.
 
@@ -136,6 +137,9 @@ ban-relative-imports = "all"
 extend-immutable-calls = ["typer.Argument"]
 
 [tool.pytest.ini_options]
+pythonpath = [
+  ".", "src",
+]
 addopts = [
     "--strict-config",
     "--strict-markers",
