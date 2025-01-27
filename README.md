@@ -227,25 +227,6 @@ GitHub Actions is configured in [`.github/workflows/python.yml`](./.github/workf
 ## Generating a User Guide
 
 Sphinx is a powerful documentation generator that supports reStructuredText and integrates well with Python projects. This makes it a great fit for user guides and technical documentation.
-To build the user guide, first ensure that Sphinx is installed in your Poetry environment:
-
-```bash
-poetry add --dev sphinx
-```
-
-Initialize Sphinx in the docs' directory:
-```bash
-cd docs
-sphinx-quickstart
-```
-
-Configure docs/source/conf.py to include your src directory:
-```bash
-from pathlib import Path
-import sys
-
-sys.path.insert(0, Path('../src').resolve())
-```
 
 To build the user guide, run,
 

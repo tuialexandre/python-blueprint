@@ -1,7 +1,7 @@
 from pathlib import Path
 import sys
 
-sys.path.insert(0, Path("../src").resolve())
+sys.path.insert(0, str(Path("../src").resolve()))
 
 # Configuration file for the Sphinx documentation builder.
 #
